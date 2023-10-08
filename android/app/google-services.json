@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "775253888429",
+    "project_id": "refill-6ad86",
+    "storage_bucket": "refill-6ad86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775253888429:android:8cba1883732f17e0832524",
+        "android_client_info": {
+          "package_name": "com.example.refill_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI5RZXV031T8lZZ3MCrvsiYd4I6f9MCks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
