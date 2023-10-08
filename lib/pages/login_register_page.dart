@@ -47,18 +47,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(15),
         child: ListView(
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Refill Logo
                 const RefillLogo(),
 
                 // Login Container
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                SizedBox(
+                  width: 550,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
