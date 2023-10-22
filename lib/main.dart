@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:refill_app/colors.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:refill_app/widget_tree.dart';
@@ -24,10 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        backgroundColor: Colours.scaffoldBGColor,
-        body: WidgetTree(),
-      ),
+      home: const WidgetTree(),
     );
   }
 }

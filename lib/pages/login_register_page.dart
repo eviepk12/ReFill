@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:refill_app/auth.dart';
+import 'package:refill_app/constants.dart';
+import 'package:refill_app/widgets/footer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -46,103 +48,117 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(15),
-        child: ListView(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Refill Logo
-                const RefillLogo(),
+    return Scaffold(
+      backgroundColor: Colours.scaffoldBGColor,
+      body: Padding(
+          padding: const EdgeInsets.all(15),
+          child: ListView(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Refill Logo
+                  const RefillLogo(),
 
-                // Login Container
-                SizedBox(
-                  width: 550,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                        color: const Color.fromRGBO(60, 61, 69, 1),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                isLogin ? "Login" : "Register",
-                                style: const TextStyle(
-                                    fontSize: 40, color: Colors.white),
-                              ),
-                              const SizedBox(height: 40),
-                              _EntryField(
-                                title: "Email",
-                                controller: _emailController,
-                                isPassword: false,
-                              ),
-                              const SizedBox(height: 40),
-                              _EntryField(
-                                title: "Password",
-                                controller: _passwordController,
-                                isPassword: true,
-                              ),
-                              const SizedBox(height: 40),
-                              if (!isLogin)
-                                _EntryField(
-                                    title: "Confirm Password",
-                                    controller: _confirmPasswordController,
-                                    isPassword: true),
-
-                              // Forgot Password / change login register
-                              TextButton(
-                                onPressed: () {
-                                  //forgot password screen
-                                },
-                                child: const Text(
-                                  'Forgot Password',
+                  // Login Container
+                  SizedBox(
+                    // padding: const EdgeInsets.only(right: 250.0, left: 250.0),
+                    width: 550,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                          color: const Color.fromRGBO(60, 61, 69, 1),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  isLogin ? "Login" : "Register",
+                                  style: const TextStyle(
+                                      fontSize: 40, color: Colors.white),
                                 ),
-                              ),
-                              ElevatedButton(
-                                child: Text(isLogin ? "Login" : "Register"),
-                                onPressed: () {
-                                  isLogin
-                                      ? singInWithEmailAndPassword()
-                                      : createUserWithEmailAndPassword();
-                                },
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  const Text(
-                                    'Doesn\'t have an account?',
-                                    style: TextStyle(color: Colors.white),
+                                const SizedBox(height: 40),
+                                _EntryField(
+                                  title: "Email",
+                                  controller: _emailController,
+                                  isPassword: false,
+                                ),
+                                const SizedBox(height: 40),
+                                _EntryField(
+                                  title: "Password",
+                                  controller: _passwordController,
+                                  isPassword: true,
+                                ),
+                                const SizedBox(height: 40),
+                                if (!isLogin)
+                                  _EntryField(
+                                      title: "Confirm Password",
+                                      controller: _confirmPasswordController,
+                                      isPassword: true),
+
+                                // Forgot Password / change login register
+                                TextButton(
+                                  onPressed: () {
+                                    //forgot password screen
+                                  },
+                                  child: const Text(
+                                    'Forgot Password',
                                   ),
-                                  TextButton(
-                                    child: Text(
-                                      isLogin ? "Register" : "Login",
-                                      style: const TextStyle(fontSize: 20),
+                                ),
+                                ElevatedButton(
+                                  child: Text(isLogin ? "Login" : "Register"),
+                                  onPressed: () {
+                                    isLogin
+                                        ? singInWithEmailAndPassword()
+                                        : createUserWithEmailAndPassword();
+
+                                    if (!isLogin &&
+                                        _passwordController.text !=
+                                            _confirmPasswordController.text) {
+                                      const snackBar = SnackBar(
+                                          content:
+                                              Text('Passwords does not match'));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+                                  },
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    const Text(
+                                      'Doesn\'t have an account?',
+                                      style: TextStyle(color: Colors.white),
                                     ),
-                                    onPressed: () {
-                                      setState(() {
-                                        isLogin = !isLogin;
-                                      });
-                                    },
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        )),
+                                    TextButton(
+                                      child: Text(
+                                        isLogin ? "Register" : "Login",
+                                        style: const TextStyle(fontSize: 20),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          isLogin = !isLogin;
+                                        });
+                                      },
+                                    )
+                                  ],
+                                ),
+                                Text(errorMessage == ''
+                                    ? ''
+                                    : 'Error : $errorMessage'),
+                              ],
+                            ),
+                          )),
+                    ),
                   ),
-                ),
-
-                Text(errorMessage == '' ? '' : 'Humm ? $errorMessage'),
-
-                // Footer
-                const Footer()
-              ],
-            )
-          ],
-        ));
+                  // Footer
+                  const Footer()
+                ],
+              )
+            ],
+          )),
+    );
   }
 }
 
@@ -155,30 +171,6 @@ class RefillLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         height: 200, width: 200, child: Image.asset("assets/logo.png"));
-  }
-}
-
-class Footer extends StatelessWidget {
-  const Footer({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 80,
-          width: 80,
-          child: Image.asset("assets/logo.png"),
-        ),
-        const Text(
-          " | Copyright 2023",
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        )
-      ],
-    );
   }
 }
 
@@ -201,6 +193,9 @@ class _EntryField extends StatelessWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         labelText: title,
+        focusColor: Colors.white,
+        filled: true,
+        fillColor: Colors.white,
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:refill_app/auth.dart';
-import 'package:refill_app/pages/home_page.dart';
+import 'package:refill_app/pages/header_page.dart';
 import 'package:refill_app/pages/login_register_page.dart';
 
 class WidgetTree extends StatefulWidget {
@@ -17,7 +17,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       stream: Auth().authStateChanges,
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
-          return HomePage();
+          return HeaderPage();
         } else {
           return const LoginPage();
         }
