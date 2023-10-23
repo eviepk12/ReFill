@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:refill_app/auth.dart';
 import 'package:refill_app/constants.dart';
-import 'package:refill_app/pages/coming_soon_page.dart';
-import 'package:refill_app/pages/home_page.dart';
-import 'package:refill_app/pages/trending_page.dart';
+import 'package:refill_app/pages/movies_lists.dart';
 import 'package:refill_app/pages/user_page.dart';
 
 class HeaderPage extends StatelessWidget {
@@ -47,6 +45,8 @@ class HeaderPage extends StatelessWidget {
               ),
               const Expanded(
                 child: TabBar(
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.black,
                   tabs: [
                     Tab(icon: Icon(Icons.home_filled)),
                     Tab(icon: Icon(Icons.local_fire_department)),
@@ -69,7 +69,20 @@ class HeaderPage extends StatelessWidget {
         ),
         body: const TabBarView(
           physics: NeverScrollableScrollPhysics(),
-          children: [HomePage(), TrendingPage(), ComingSoonPage()],
+          children: [
+            HomePageCaroussel(
+              title1: "Trending Movies",
+              title2: "Trending Series",
+            ),
+            TopRatedCaroussel(
+              title1: "Top Rated Movies",
+              title2: "Top Rated Series",
+            ),
+            UpcomingCaroussel(
+              title1: "Upcoming Movies",
+              title2: "Popular Series",
+            )
+          ],
         ),
       ),
     );

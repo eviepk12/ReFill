@@ -7,4 +7,5 @@ class Colours {
 
 class ApiKeys {
   static const apiKey = "9647bbd18d7fac35b73955523a5adfe6";
+  static const imageUrl = 'https://image.tmdb.org/t/p/w500';
 }

@@ -1,6 +1,6 @@
 class Movie {
   String title;
-  String backDropPath;
+  // String backDropPath;
   String orignalTitle;
   String overview;
   String posterPath;
@@ -9,7 +9,7 @@ class Movie {
 
   Movie({
     required this.title,
-    required this.backDropPath,
+    // required this.backDropPath,
     required this.orignalTitle,
     required this.overview,
     required this.posterPath,
@@ -20,7 +20,7 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
       title: json["title"],
-      backDropPath: json["backdrop_path"],
+      // backDropPath: json["backdrop_path"],
       orignalTitle: json["original_title"],
       overview: json["overview"],
       posterPath: json["poster_path"],

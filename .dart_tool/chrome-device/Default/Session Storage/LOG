@@ -1,3 +1,4 @@
-2023/10/22-19:48:28.624 5103 Reusing MANIFEST /private/var/folders/h6/633y9gnj2jj1m4gfx3xnfk5c0000gp/T/flutter_tools.47DjlM/flutter_tools_chrome_device.Rh8qbv/Default/Session Storage/MANIFEST-000001
-2023/10/22-19:48:28.627 5103 Recovering log #3
-2023/10/22-19:48:28.628 5103 Reusing old log /private/var/folders/h6/633y9gnj2jj1m4gfx3xnfk5c0000gp/T/flutter_tools.47DjlM/flutter_tools_chrome_device.Rh8qbv/Default/Session Storage/000003.log 
+2023/10/23-12:30:10.989 2b03 Reusing MANIFEST /private/var/folders/h6/633y9gnj2jj1m4gfx3xnfk5c0000gp/T/flutter_tools.Kb0m4k/flutter_tools_chrome_device.ZJQWuC/Default/Session Storage/MANIFEST-000001
+2023/10/23-12:30:10.994 2b03 Recovering log #3
+2023/10/23-12:30:10.995 2b03 (ignoring error) /private/var/folders/h6/633y9gnj2jj1m4gfx3xnfk5c0000gp/T/flutter_tools.Kb0m4k/flutter_tools_chrome_device.ZJQWuC/Default/Session Storage/000003.log: dropping 578 bytes; Corruption: missing start of fragmented record(2)
+2023/10/23-12:30:10.998 2b03 Reusing old log /private/var/folders/h6/633y9gnj2jj1m4gfx3xnfk5c0000gp/T/flutter_tools.Kb0m4k/flutter_tools_chrome_device.ZJQWuC/Default/Session Storage/000003.log 

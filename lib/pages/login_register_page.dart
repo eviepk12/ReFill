@@ -60,9 +60,14 @@ class _LoginPageState extends State<LoginPage> {
                   // Refill Logo
                   const RefillLogo(),
 
+                  Text(
+                    errorMessage == '' ? '' : 'Error : $errorMessage',
+                    style: const TextStyle(fontSize: 20, color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+
                   // Login Container
                   SizedBox(
-                    // padding: const EdgeInsets.only(right: 250.0, left: 250.0),
                     width: 550,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
@@ -98,38 +103,47 @@ class _LoginPageState extends State<LoginPage> {
                                       isPassword: true),
 
                                 // Forgot Password / change login register
-                                TextButton(
-                                  onPressed: () {
-                                    //forgot password screen
-                                  },
-                                  child: const Text(
-                                    'Forgot Password',
+                                if (isLogin)
+                                  TextButton(
+                                    onPressed: () {
+                                      //forgot password screen
+                                    },
+                                    child: const Text(
+                                      'Forgot Password',
+                                    ),
                                   ),
-                                ),
-                                ElevatedButton(
-                                  child: Text(isLogin ? "Login" : "Register"),
-                                  onPressed: () {
-                                    isLogin
-                                        ? singInWithEmailAndPassword()
-                                        : createUserWithEmailAndPassword();
 
-                                    if (!isLogin &&
-                                        _passwordController.text !=
-                                            _confirmPasswordController.text) {
-                                      const snackBar = SnackBar(
-                                          content:
-                                              Text('Passwords does not match'));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    }
-                                  },
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10.0, bottom: 10.0),
+                                  child: ElevatedButton(
+                                    child: Text(isLogin ? "Login" : "Register"),
+                                    onPressed: () {
+                                      isLogin
+                                          ? singInWithEmailAndPassword()
+                                          : createUserWithEmailAndPassword();
+
+                                      if (!isLogin &&
+                                          _passwordController.text !=
+                                              _confirmPasswordController.text) {
+                                        const snackBar = SnackBar(
+                                            content: Text(
+                                                'Passwords does not match'));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      }
+                                    },
+                                  ),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    const Text(
-                                      'Doesn\'t have an account?',
-                                      style: TextStyle(color: Colors.white),
+                                    Text(
+                                      isLogin
+                                          ? 'Doesn\'t have an account?'
+                                          : "Already have an Account?",
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
                                     TextButton(
                                       child: Text(
@@ -144,9 +158,6 @@ class _LoginPageState extends State<LoginPage> {
                                     )
                                   ],
                                 ),
-                                Text(errorMessage == ''
-                                    ? ''
-                                    : 'Error : $errorMessage'),
                               ],
                             ),
                           )),
