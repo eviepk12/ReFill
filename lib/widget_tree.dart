@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refill_app/auth.dart';
-import 'package:refill_app/pages/login_register_page.dart';
-import 'package:refill_app/pages/verify_email_page.dart';
+import 'package:refill_app/pages/auth_pages/login_register_page.dart';
+import 'package:refill_app/pages/auth_pages/verify_email_page.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
