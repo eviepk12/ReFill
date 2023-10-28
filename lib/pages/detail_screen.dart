@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:refill_app/api/api.dart';
 import 'package:refill_app/constants.dart';
 import 'package:refill_app/models/movie.dart';
-import 'package:refill_app/models/movie_details.dart';
 
 class DetailScreen extends StatelessWidget {
   final Movie movie;

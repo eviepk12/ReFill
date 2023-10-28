@@ -38,11 +38,6 @@ class _HomePageCarousselState extends State<HomePageCaroussel> {
         padding: const EdgeInsets.all(35),
         child: ListView(
           children: [
-            // Container(
-            //   color: Colors.red,
-            //   height: 250,
-            // ),
-            //
             SizedBox(
               child: FutureBuilder(
                 future: trendingMovies,
@@ -120,11 +115,6 @@ class _TopRatedCaroussel extends State<TopRatedCaroussel> {
         padding: const EdgeInsets.all(35),
         child: ListView(
           children: [
-            // Container(
-            //   color: Colors.red,
-            //   height: 250,
-            // ),
-            //
             SizedBox(
               child: FutureBuilder(
                 future: topRatedMovies,
@@ -178,10 +168,10 @@ class UpcomingCaroussel extends StatefulWidget {
       {super.key, required this.title1, required this.title2});
 
   @override
-  State<UpcomingCaroussel> createState() => _UpcomingCaroussel();
+  State<UpcomingCaroussel> createState() => _UpcomingCarousselState();
 }
 
-class _UpcomingCaroussel extends State<UpcomingCaroussel> {
+class _UpcomingCarousselState extends State<UpcomingCaroussel> {
   late Future<List<Movie>> upcomingMovies;
 
   late Future<List<Series>> popularSeries;

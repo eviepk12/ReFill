@@ -78,7 +78,7 @@ class HeaderPage extends StatelessWidget {
               title1: "Top Rated Movies",
               title2: "Top Rated Series",
             ),
-            UpcomingCaroussel(
+            HomePageCaroussel(
               title1: "Upcoming Movies",
               title2: "Popular Series",
             )
