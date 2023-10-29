@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:refill_app/auth.dart';
 import 'package:refill_app/constants.dart';
 import 'package:refill_app/pages/movies_lists.dart';
+import 'package:refill_app/pages/search_page.dart';
 import 'package:refill_app/pages/user_page.dart';
 
 class HeaderPage extends StatelessWidget {
@@ -33,13 +34,11 @@ class HeaderPage extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.account_circle),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const UserPage(),
-                        ),
-                      );
-                    },
+                    onPressed: () =>
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UserPage()),
+                      ),
                   ),
                 ],
               ),
@@ -59,8 +58,11 @@ class HeaderPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   IconButton(
-                    icon: const Icon(Icons.output),
-                    onPressed: signOut,
+                    icon: const Icon(Icons.search),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchPage()),
+                    ),
                   ),
                 ],
               ),

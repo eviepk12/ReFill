@@ -17,7 +17,7 @@ class Movie {
     String originalTitle;
     String overview;
     String posterPath;
-    String mediaType;
+    // String mediaType;
     List<int> genreIds;
     double popularity;
     DateTime releaseDate;
@@ -34,7 +34,7 @@ class Movie {
         required this.originalTitle,
         required this.overview,
         required this.posterPath,
-        required this.mediaType,
+        // required this.mediaType,
         required this.genreIds,
         required this.popularity,
         required this.releaseDate,
@@ -52,7 +52,7 @@ class Movie {
         originalTitle: json["original_title"],
         overview: json["overview"],
         posterPath: json["poster_path"],
-        mediaType: json["media_type"],
+        // mediaType: json["media_type"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         popularity: json["popularity"]?.toDouble(),
         releaseDate: DateTime.parse(json["release_date"]),
@@ -70,7 +70,7 @@ class Movie {
         "original_title": originalTitle,
         "overview": overview,
         "poster_path": posterPath,
-        "media_type": mediaType,
+        // "media_type": mediaType,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "popularity": popularity,
         "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
