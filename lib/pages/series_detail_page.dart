@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refill_app/constants.dart';
 import 'package:refill_app/models/series.dart';
-import 'package:refill_app/pages/detail_screen_movie.dart';
 import 'package:refill_app/widgets/appbar_title.dart';
 
 class DetailsSeries extends StatelessWidget {

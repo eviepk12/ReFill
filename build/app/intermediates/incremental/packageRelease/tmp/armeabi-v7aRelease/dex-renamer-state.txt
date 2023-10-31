@@ -1,0 +1,4 @@
+#Mon Oct 30 06:32:45 WIB 2023
+base.0=/Users/zainal/Documents/projects/refill/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

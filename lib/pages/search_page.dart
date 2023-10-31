@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:refill_app/constants.dart';
 import 'package:refill_app/pages/detail_screen_movie.dart';

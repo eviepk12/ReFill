@@ -289,6 +289,27 @@
     boolean getRECOVER_STACK_TRACES() return false;
 }
 # End of content from /Users/zainal/.gradle/caches/transforms-3/962bff68f64db5e6fa1ff5a9fd59589e/transformed/rules/lib/META-INF/com.android.tools/r8-from-1.6.0/coroutines.pro
+# The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/8bc761ed5e61afb82ed7133b79323200/transformed/jetified-firebase-firestore-24.8.1/proguard.txt
+# Needed for DNS resolution.  Present in OpenJDK, but not Android
+-dontwarn javax.naming.**
+
+# Don't warn about checkerframework
+#
+# Guava uses the checkerframework and the annotations
+# can safely be ignored at runtime.
+-dontwarn org.checkerframework.**
+
+# Guava warnings:
+-dontwarn java.lang.ClassValue
+-dontwarn com.google.j2objc.annotations.Weak
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn javax.lang.model.element.Modifier
+
+# Okhttp warnings.
+-dontwarn okio.**
+-dontwarn com.google.j2objc.annotations.**
+
+# End of content from /Users/zainal/.gradle/caches/transforms-3/8bc761ed5e61afb82ed7133b79323200/transformed/jetified-firebase-firestore-24.8.1/proguard.txt
 # The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/fdb1b8c17bb475421c49bf182ad95b6f/transformed/jetified-firebase-auth-interop-20.0.0/proguard.txt
 # Can be removed once we pull in a dependency on firebase-common that includes
 # https://github.com/firebase/firebase-android-sdk/pull/1472/commits/856f1ca1151cdd88679bbc778892f23dfa34fc06#diff-a2ed34b5a38b4c6c686b09e54865eb48
@@ -471,7 +492,7 @@
 }
 
 # End of content from /Users/zainal/.gradle/caches/transforms-3/f5b397d4be729b9c8a14e6bc755ca052/transformed/lifecycle-viewmodel-2.1.0/proguard.txt
-# The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/bf086c0ef523db9c40947c8d92f67918/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/398e5b94d37fcda86b89dd95b0a98dca/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
 -keep,allowobfuscation @interface androidx.annotation.Keep
 -keep @androidx.annotation.Keep class * {*;}
 
@@ -491,7 +512,46 @@
   @androidx.annotation.DoNotInline <methods>;
 }
 
-# End of content from /Users/zainal/.gradle/caches/transforms-3/bf086c0ef523db9c40947c8d92f67918/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# End of content from /Users/zainal/.gradle/caches/transforms-3/398e5b94d37fcda86b89dd95b0a98dca/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/7c683fb81f1299f97593f8981a39f57c/transformed/jetified-protolite-well-known-types-18.0.0/proguard.txt
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+
+# protobuf-javalite has a bug that requires this workaround rule
+# https://github.com/protocolbuffers/protobuf/issues/6463#issuecomment-553183215
+-keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite {
+  <fields>;
+}
+
+# End of content from /Users/zainal/.gradle/caches/transforms-3/7c683fb81f1299f97593f8981a39f57c/transformed/jetified-protolite-well-known-types-18.0.0/proguard.txt
+# The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/825df1e7c4b9a14f11ee41442d7e74c1/transformed/jetified-grpc-android-1.52.1/proguard.txt
+-keepclassmembers class io.grpc.okhttp.OkHttpChannelBuilder {
+  io.grpc.okhttp.OkHttpChannelBuilder forTarget(java.lang.String);
+  io.grpc.okhttp.OkHttpChannelBuilder scheduledExecutorService(java.util.concurrent.ScheduledExecutorService);
+  io.grpc.okhttp.OkHttpChannelBuilder sslSocketFactory(javax.net.ssl.SSLSocketFactory);
+  io.grpc.okhttp.OkHttpChannelBuilder transportExecutor(java.util.concurrent.Executor);
+}
+
+# End of content from /Users/zainal/.gradle/caches/transforms-3/825df1e7c4b9a14f11ee41442d7e74c1/transformed/jetified-grpc-android-1.52.1/proguard.txt
 # The proguard configuration file for the following section is /Users/zainal/.gradle/caches/transforms-3/33edf3ee0517c86776bd6cb7682045f3/transformed/jetified-annotation-experimental-1.1.0/proguard.txt
 # Copyright (C) 2020 The Android Open Source Project
 #
