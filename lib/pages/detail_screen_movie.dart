@@ -3,11 +3,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refill_app/constants.dart';
 import 'package:refill_app/models/movie.dart';
+import 'package:refill_app/widgets/appbar_title.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailsMovie extends StatelessWidget {
   final Movie movie;
 
-  const DetailScreen({
+  const DetailsMovie({
     super.key,
     required this.movie,
   });
@@ -18,14 +19,7 @@ class DetailScreen extends StatelessWidget {
       backgroundColor: Colours.scaffoldBGColor,
       appBar: AppBar(
         backgroundColor: Colours.accentColor,
-        title: Text(
-          "Details",
-          style: GoogleFonts.aBeeZee(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        title: const AppBarTitle(title: "Details"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),

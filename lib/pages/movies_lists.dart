@@ -48,7 +48,7 @@ class _HomePageCarousselState extends State<HomePageCaroussel> {
                     );
                   } else if (snapshot.hasData) {
                     return MovieListContainer(
-                        title: widget.title1, snapshot: snapshot);
+                        title: widget.title1, snapshot: snapshot, isMovie: true,);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -67,7 +67,7 @@ class _HomePageCarousselState extends State<HomePageCaroussel> {
                     );
                   } else if (snapshot.hasData) {
                     return MovieListContainer(
-                        title: widget.title2, snapshot: snapshot);
+                        title: widget.title2, snapshot: snapshot, isMovie: false,);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -125,7 +125,7 @@ class _TopRatedCaroussel extends State<TopRatedCaroussel> {
                     );
                   } else if (snapshot.hasData) {
                     return MovieListContainer(
-                        title: widget.title1, snapshot: snapshot);
+                        title: widget.title1, snapshot: snapshot, isMovie: true,);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -144,7 +144,7 @@ class _TopRatedCaroussel extends State<TopRatedCaroussel> {
                     );
                   } else if (snapshot.hasData) {
                     return MovieListContainer(
-                        title: widget.title2, snapshot: snapshot);
+                        title: widget.title2, snapshot: snapshot, isMovie: false,);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -202,7 +202,7 @@ class _UpcomingCarousselState extends State<UpcomingCaroussel> {
                     );
                   } else if (snapshot.hasData) {
                     return MovieListContainer(
-                        title: widget.title1, snapshot: snapshot);
+                        title: widget.title1, snapshot: snapshot, isMovie: true,);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -221,7 +221,7 @@ class _UpcomingCarousselState extends State<UpcomingCaroussel> {
                     );
                   } else if (snapshot.hasData) {
                     return MovieListContainer(
-                        title: widget.title2, snapshot: snapshot);
+                        title: widget.title2, snapshot: snapshot, isMovie: false,);
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),

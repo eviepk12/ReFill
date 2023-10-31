@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:refill_app/constants.dart';
-import 'package:refill_app/pages/detail_screen.dart';
+import 'package:refill_app/pages/detail_screen_movie.dart';
+import 'package:refill_app/pages/series_detail_page.dart';
+import 'package:refill_app/widgets/appbar_title.dart';
+import 'package:refill_app/widgets/footer.dart';
 import 'dart:convert';
 
 import '../models/movie.dart';
@@ -48,14 +51,7 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: Colours.scaffoldBGColor,
       appBar: AppBar(
         backgroundColor: Colours.accentColor,
-        title: Text(
-          "Search",
-          style: GoogleFonts.aBeeZee(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        title: const AppBarTitle(title: "Search"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -92,22 +88,21 @@ class _SearchPageState extends State<SearchPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  DetailScreen(movie: Movie.fromJson(result)),
+                                  DetailsMovie(movie: Movie.fromJson(result)),
                             ),
                           );
                         }
-                        //else if (result['media_type'] == 'tv') {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => SeriesDetailsScreen(
-                        //           series: Series.fromJson(result)),
-                        //     ),
-                        //   );
-                        // }
+                        else if (result['media_type'] == 'tv') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsSeries(series: Series.fromJson(result))
+                            ),
+                          );
+                        }
                       },
                       leading: result['poster_path'] != null
-                          ? Container(
+                          ? SizedBox(
                               width: 56,
                               height: 84,
                               child: Image.network(
@@ -115,7 +110,7 @@ class _SearchPageState extends State<SearchPage> {
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                       title: Text(result['name'] ?? result['title'] ?? 'N/A',
                           style: const TextStyle(color: Colors.white)),
                       subtitle: (result['media_type'] == "movie")
@@ -131,11 +126,11 @@ class _SearchPageState extends State<SearchPage> {
                                   style: const TextStyle(
                                       color: Colours.accentColor),
                                 ) // conditional statements for media types
-                      // Text(result['media_type'] == "movie" ? result['release_date'] : result['first_air_date'], style: const TextStyle(color: Colours.accentColor),),
                       );
                 },
               ),
             ),
+            const Footer(),
           ],
         ),
       ),
