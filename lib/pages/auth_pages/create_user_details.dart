@@ -1,26 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:refill_app/constants.dart';
-import 'package:refill_app/pages/header_page.dart';
+import 'package:refill_app/widgets/appbar_title.dart';
+import 'package:refill_app/widgets/footer.dart';
 
 class CreateUserDetailsPage extends StatefulWidget {
-  // bool isNewUser;
-  bool isInDatabase = false;
-
-  CreateUserDetailsPage({Key? key}) : super(key: key);
+  const CreateUserDetailsPage({Key? key}) : super(key: key);
 
   @override
   State<CreateUserDetailsPage> createState() => _CreateUserDetailsPageState();
 }
 
 class _CreateUserDetailsPageState extends State<CreateUserDetailsPage> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
   final usernameController = TextEditingController();
   final ageController = TextEditingController();
-  final adController = TextEditingController();
   final phnController = TextEditingController();
+  
   final firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   late final user = auth.currentUser;
   late final uuid = user!.uid;
@@ -28,22 +27,19 @@ class _CreateUserDetailsPageState extends State<CreateUserDetailsPage> {
 
   CollectionReference Users = FirebaseFirestore.instance.collection("Users");
 
+  final _formKey = GlobalKey<FormState>();
+
   Future<void> addUsers() {
     return Users.add({
-      "useId": uuid,
+      "userId": uuid,
       "email": userEmail,
       "username": usernameController.text,
       "age": ageController.text,
       "phone_no.": phnController.text
     }).then((value) {
       print("User added");
-      widget.isInDatabase = true;
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => HeaderPage(),
-      //   ),
-      // );
+      var snackBar = const SnackBar(content: Text('Data Saved'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }).catchError((error) {
       print("Failed to add user : $error");
       var snackBar = SnackBar(content: Text('Failed to add user : $error'));
@@ -52,65 +48,85 @@ class _CreateUserDetailsPageState extends State<CreateUserDetailsPage> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.isInDatabase == false
-      ? HeaderPage()
-      : Scaffold(
-          backgroundColor: Colours.scaffoldBGColor,
-          body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Divider(color: Colors.red),
-                const Text(
-                  'Input your User Details!',
-                  style: TextStyle(fontSize: 28, color: Colours.accentColor),
-                ),
-                const Divider(color: Colors.red),
-                // const SizedBox(height: 15),
-                //
-                Form(
-                  child: Column(
-                    children: [
-                      _EntryField(
-                          title: "Username", controller: usernameController),
-                      SizedBox(height: 10),
-                      _EntryField(title: "Age", controller: ageController),
-                      SizedBox(height: 10),
-                      _EntryField(
-                          title: "Phone Number", controller: phnController),
-                      //
-                      const SizedBox(height: 15),
-                      ElevatedButton(
-                        onPressed: () async {
-                          addUsers();
-                        },
-                        style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.white),
-                        ),
-                        child: const Text(
-                          "Submit Details",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      )
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colours.accentColor,
+        title: const AppBarTitle(title: "Input User Details"),
+      ),
+      backgroundColor: Colours.scaffoldBGColor,
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _EntryField(
+                    title: "Username",
+                    controller: usernameController,
+                    keyboardType: TextInputType.name,
+                    inputFormat: <TextInputFormatter>[
+                      FilteringTextInputFormatter.singleLineFormatter
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  _EntryField(
+                    title: "Age",
+                    controller: ageController,
+                    keyboardType: TextInputType.number,
+                    inputFormat: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  _EntryField(
+                    title: "Phone Number",
+                    controller: phnController,
+                    keyboardType: TextInputType.phone,
+                    inputFormat: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                  ),
+                  //
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                    style: const ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colors.green)),
+                    onPressed: () {
+                      // Validate returns true if the form is valid, or false otherwise.
+                      if (_formKey.currentState!.validate()) {
+                        addUsers();
+                      }
+                    },
+                    child: const Text('Save Details',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
+            const Footer()
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _EntryField extends StatelessWidget {
   final String title;
   final TextEditingController controller;
+  final TextInputType keyboardType;
+  final List<TextInputFormatter> inputFormat;
 
-  const _EntryField({
-    required this.title,
-    required this.controller,
-  });
+  const _EntryField(
+      {required this.title,
+      required this.controller,
+      required this.keyboardType,
+      required this.inputFormat});
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +139,8 @@ class _EntryField extends StatelessWidget {
         }
       },
       controller: controller,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormat,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         labelText: title,
