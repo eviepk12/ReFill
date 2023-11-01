@@ -52,24 +52,24 @@ class MovieListContainer extends StatelessWidget {
                               ),
                             );
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.amber,
+                    child: Container(
+                      child: SizedBox(
+                        height: double.infinity,
+                        child: Card(
+                          semanticContainer: true,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: Container(
-                            color: Colours.accentColor.withOpacity(0.5),
-                            child: Image.network(
-                              '${ApiKeys.imageUrl}${snapshot.data[itemIndex].posterPath}',
-                              filterQuality: FilterQuality.high,
-                              fit: BoxFit.cover,
-                            ),
+                          elevation: 5,
+                           shadowColor: Colours.accentColor,
+                          margin: const EdgeInsets.all(10),
+                          child: Image.network(
+                            '${ApiKeys.imageUrl}${snapshot.data[itemIndex].posterPath}',
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      ],
+                      ),
                     ));
               },
             );

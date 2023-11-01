@@ -30,7 +30,7 @@ class UserPage extends StatelessWidget {
           IconButton(
               onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CreateUserDetailsPage()),
+                    MaterialPageRoute(builder: (context) => const CreateUserDetailsPage()),
                   ),
               icon: const Icon(Icons.settings))
         ],
@@ -76,7 +76,7 @@ class MovieListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    final docRef = db.collection("Users").where("uid", isEqualTo: user!.uid);
+    // final docRef = db.collection("Users").where("uid", isEqualTo: user!.uid);
     // docRef.get().then(
     //   (DocumentSnapshot doc) {
     //     final data = doc.data() as Map<String, dynamic>;
@@ -113,7 +113,7 @@ class MovieListContainer extends StatelessWidget {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.amber,
                           ),
                           child: Container(

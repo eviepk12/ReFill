@@ -35,6 +35,7 @@ class DetailsSeries extends StatelessWidget {
       53: "Thriller",
       10752: "War",
       37: "Western",
+      10765: "Sci-Fi & Fantasy"
     };
 
     List<String> genreNames = series.genreIds
@@ -89,6 +90,64 @@ class DetailsSeries extends StatelessWidget {
                 textColor: Colours.accentColor,
               ),
               //
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colours.accentColor)),
+                    onPressed: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        backgroundColor: Colors.grey,
+                        content: SizedBox(
+                          width: 250,
+                          child: RatingBar.builder(
+                            initialRating: 5,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 10,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    child: const Text('Rate it!',
+                        style: TextStyle(color: Colors.black)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      print(series.id);
+                    },
+                    child: Text("Favorite it!",
+                        style: TextStyle(color: Colors.black)),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colours.accentColor)),
+                  )
+                ],
+              ),
+              //
               SizedBox(
                 width: 250,
                 child: RatingBar.builder(
@@ -109,6 +168,8 @@ class DetailsSeries extends StatelessWidget {
               ),
               //
               OverviewContainer(series: series),
+
+              InformationContainer(genreNames: genreNames)
             ],
           ),
         ],
@@ -150,6 +211,53 @@ class OverviewContainer extends StatelessWidget {
               textAlign: TextAlign.justify,
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class InformationContainer extends StatelessWidget {
+  const InformationContainer({
+    super.key,
+    required this.genreNames,
+  });
+
+  final List<String> genreNames;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const HeadingText(
+            title: "Information",
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            textColor: Colors.white,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+                side: const BorderSide(
+                  width: 5,
+                  color: Colours.accentColor,
+                ),
+                backgroundColor: Colours.scaffoldBGColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 50)),
+            child: Text(
+              genreNames.join(", "),
+              style: const TextStyle(fontSize: 20, color: Colors.white),
+            ),
+          )
         ],
       ),
     );

@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:refill_app/constants.dart';
 import 'package:refill_app/widgets/appbar_title.dart';
 import 'package:refill_app/widgets/footer.dart';
@@ -17,9 +21,10 @@ class _CreateUserDetailsPageState extends State<CreateUserDetailsPage> {
   final usernameController = TextEditingController();
   final ageController = TextEditingController();
   final phnController = TextEditingController();
-  
+
   final firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
+  File? _image;
 
   late final user = auth.currentUser;
   late final uuid = user!.uid;
@@ -29,22 +34,58 @@ class _CreateUserDetailsPageState extends State<CreateUserDetailsPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> addUsers() {
-    return Users.add({
+  Future<void> addUsers() async {
+    final db = FirebaseFirestore.instance;
+
+    var imageName = DateTime.now().millisecondsSinceEpoch.toString();
+    var storageRef =
+        FirebaseStorage.instance.ref().child('UserAvatars/$imageName.jpg');
+    var uploadTask = storageRef.putFile(_image!);
+    var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+
+    final userData = <String, String>{
       "userId": uuid,
-      "email": userEmail,
+      "email": userEmail.toString(),
       "username": usernameController.text,
       "age": ageController.text,
-      "phone_no.": phnController.text
-    }).then((value) {
+      "phone_no.": phnController.text,
+      "imageUrl": downloadUrl.toString(),
+    };
+
+    db.collection("Users").doc(uuid).set(userData).then((value) {
       print("User added");
       var snackBar = const SnackBar(content: Text('Data Saved'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      usernameController.clear();
+      ageController.clear();
+      phnController.clear();
     }).catchError((error) {
       print("Failed to add user : $error");
       var snackBar = SnackBar(content: Text('Failed to add user : $error'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
+
+    // return Users.add({
+    // "userId": uuid,
+    // "email": userEmail,
+    // "username": usernameController.text,
+    // "age": ageController.text,
+    // "phone_no.": phnController.text,
+    // "imageUrl": downloadUrl.toString(),
+    // }).then((value) {
+    //   print("User added");
+    //   var snackBar = const SnackBar(content: Text('Data Saved'));
+    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    //   usernameController.clear();
+    //   ageController.clear();
+    //   phnController.clear();
+    // }).catchError((error) {
+    //   print("Failed to add user : $error");
+    //   var snackBar = SnackBar(content: Text('Failed to add user : $error'));
+    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // });
   }
 
   @override
@@ -57,9 +98,38 @@ class _CreateUserDetailsPageState extends State<CreateUserDetailsPage> {
       backgroundColor: Colours.scaffoldBGColor,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: ListView(
           children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colours.accentColor,
+                      style: BorderStyle.solid,
+                      width: 5),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: _image == null
+                      ? const Text('No image selected.')
+                      : Image.file(_image!),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                final image =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (image != null) {
+                  setState(() {
+                    _image = File(image.path);
+                  });
+                }
+              },
+              child: const Text('Select image'),
+            ),
+            const SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Column(
